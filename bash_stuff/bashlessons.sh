@@ -179,4 +179,8 @@ Total: 3
 ps S -o pid,nlwp,%mem,rss,vsz,%cpu,cputime,args --forest -u $USER |\
 awk '{pmem+=$3;rss+=$4;vsz+=$5; print $0}END{printf("MEM SUM: %4.1f%% %3.1fGB %3.1fGB \n", pmem,rss/1028/1028,vsz/1024/1024)}'
 
-# run your scripts by calling "bash" on them as in: bash script.sh
+# run your scripts by calling "bash" on them as in:  bash script.sh
+
+# Get the output of ps -ef and then if 6th column is either "tty1" or "tty2", 
+# then get the 2nd, 6th and 8th columns for that line and append results to filename.txt
+ps -ef | awk '$6 ~ /tty1|tty2/ {print $2,$6,$8}' >> filename.txt
